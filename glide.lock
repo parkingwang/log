@@ -1,6 +1,0 @@
-hash: 31410ae5da5851bf7bf4dfe778535b3d7a9dd98996f1779e38fb81ed7446343a
-updated: 2018-08-14T11:25:44.378788+08:00
-imports:
-- name: github.com/afocus/log
-  version: 563f92a78885542b8c127317ebc8fdd369340de4
-testImports: []

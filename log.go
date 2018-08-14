@@ -123,10 +123,11 @@ type Logger struct {
 	tracing *raven.Client
 }
 
-func New(lvl Level, outs ...FormatWriter) *Logger {
+func New(lvl Level, raven *raven.Client, outs ...FormatWriter) *Logger {
 	return &Logger{
-		outs: outs,
-		lvl:  lvl,
+		outs:    outs,
+		lvl:     lvl,
+		tracing: raven,
 	}
 }
 

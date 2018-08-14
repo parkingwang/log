@@ -1,3 +1,0 @@
-package: github.com/parkingwang/log
-import:
-- package: github.com/afocus/log

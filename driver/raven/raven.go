@@ -1,4 +1,4 @@
-package tracing
+package raven
 
 import (
 	"github.com/getsentry/raven-go"
