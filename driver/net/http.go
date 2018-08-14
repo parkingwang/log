@@ -7,7 +7,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/afocus/log"
+	"github.com/parkingwang/log"
 )
 
 type Http struct {

@@ -6,7 +6,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/afocus/log"
+	"github.com/parkingwang/log"
 )
 
 type Console struct {

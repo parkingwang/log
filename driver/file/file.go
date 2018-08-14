@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/afocus/log"
+	"github.com/parkingwang/log"
 )
 
 // LogFile 实现log.FormatWriter
