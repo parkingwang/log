@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"runtime"
 	"sync"
 	"time"
@@ -162,17 +163,21 @@ func (o *Logger) Output(calldept int, level Level, acname, id, msg string) error
 	switch level {
 	case WARN:
 		{
-			o.tracing.Capture(&raven.Packet{Message: msg}, nil)
+			_, err := o.tracing.Capture(&raven.Packet{Message: msg}, nil)
+			log.Println(err)
 			break
 		}
 	case FATAL:
 		{
 			o.tracing.CaptureError(errors.New(msg), nil)
+			log.Println(msg)
 			break
 		}
 	case ERROR:
 		{
-			o.tracing.CaptureError(errors.New(msg), nil)
+			log.Println(msg)
+			str := o.tracing.CaptureError(errors.New(msg), nil)
+			log.Println(str)
 			break
 		}
 	}
