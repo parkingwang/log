@@ -2,11 +2,14 @@ package log
 
 import (
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"io"
 	"runtime"
 	"sync"
 	"time"
+
+	"github.com/getsentry/raven-go"
 )
 
 // Level 日志级别类型
@@ -116,7 +119,8 @@ type Logger struct {
 	outs []FormatWriter
 	// 日志等级限制
 	// 输入的等级>=限制才能输出
-	lvl Level
+	lvl     Level
+	tracing *raven.Client
 }
 
 func New(lvl Level, outs ...FormatWriter) *Logger {
@@ -150,6 +154,25 @@ func (o *Logger) Output(calldept int, level Level, acname, id, msg string) error
 				break
 			}
 			msg += fmt.Sprintf("\n%s:%d", file, line)
+		}
+	}
+
+	// 捕获错误报告给Senty
+	switch level {
+	case WARN:
+		{
+			o.tracing.Capture(&raven.Packet{Message: msg}, nil)
+			break
+		}
+	case FATAL:
+		{
+			o.tracing.CaptureError(errors.New(msg), nil)
+			break
+		}
+	case ERROR:
+		{
+			o.tracing.CaptureError(errors.New(msg), nil)
+			break
 		}
 	}
 
